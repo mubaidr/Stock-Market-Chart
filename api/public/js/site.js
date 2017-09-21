@@ -35,16 +35,16 @@ var app = new Vue({
     addStock() {
       var _self = this
 
-      _self.error = null
-      _self.loading = true
+      this.error = null
+      this.loading = true
 
-      if (_self.stocks.indexOf(this.stockCode) > -1) {
-        _self.error = 'This stock code is already added.'
+      if (this.stocks.indexOf(this.stockCode) > -1) {
+        this.error = 'This stock code is already added.'
       } else {
         axios.get(this.stockDataURL).then(function (res) {
-          if (res.data.Meta) {
-            _self.socketio.emit('addStock', this.stockCode)
-            _self.stocks.push(this.stockCode)
+          if (res.data['Meta Data']) {
+            _self.socketio.emit('addStock', _self.stockCode)
+            _self.stocks.push(_self.stockCode)
             _self.stockCode = ''
           } else {
             _self.error = 'Invalid Stock Code'
