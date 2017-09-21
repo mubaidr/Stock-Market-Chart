@@ -47,6 +47,8 @@ var app = new Vue({
           }
         }).catch(function (err) {
           _self.error = 'Unable to connect API server.'
+        }).then(function () {
+          _self.loading = false
         })
       }
     },
@@ -83,7 +85,7 @@ var app = new Vue({
     },
     addToChart(stockData) {
       var _self = this
-
+      //TODO get data/labels in correct format
       console.log(stockData)
 
       this.chart.data.labels.push(stockData['Meta Data']['2. Symbol'])
