@@ -40,12 +40,12 @@
               <label class="control-label">Syncs in realtime across clients</label>
               <div class="input-group">
                 <span class="input-group-addon">Code</span>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" v-model="stockCode">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">Add</button>
+                  <button class="btn btn-primary" type="button" @click="addStock" :disabled="loading || stockCode === ''">Add</button>
                 </span>
               </div>
-              <span class="help-block">A block of help text.</span>
+              <span class="help-block text-danger" v-show="error"></span>
             </div>
           </div>
         </div>
