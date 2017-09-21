@@ -83,7 +83,14 @@ var app = new Vue({
     },
     addToChart(stockData) {
       var _self = this
-      //TODO add to this.chart
+
+      console.log(stockData)
+
+      this.chart.data.labels.push(stockData['Meta Data']['2. Symbol'])
+      this.chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(stockData)
+      })
+      this.chart.update()
     },
     initiateChart() {
       this.chart = new Chart(this.$refs.myChart, {

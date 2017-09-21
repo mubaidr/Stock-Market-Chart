@@ -12,8 +12,7 @@
         "sourceType": "module"
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:vue/recommended"
+        "eslint:recommended"
     ],
     "rules": {
         "no-const-assign": "warn",
