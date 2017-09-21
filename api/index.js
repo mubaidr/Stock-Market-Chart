@@ -7,6 +7,8 @@ const path = require('path')
 const config = require('./config')
 const routes = require('./routes')
 
+var stocks = ['AAPL', 'GOOG', 'MSFT']
+
 var app = express()
 var port = process.env.PORT || config.port
 
@@ -20,4 +22,17 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', routes)
 
-app.listen(port)
+var server = require('http').Server(app)
+var io = require('socket.io')(server)
+
+io.on('connection', function (socket) {
+  socket.emit('stocks', stocks)
+
+  socket.on('addStock', function (data) {
+    stocks.push(data)
+
+    socket.broadcast.emit('stocks', stocks);
+  })
+})
+
+server.listen(port)
