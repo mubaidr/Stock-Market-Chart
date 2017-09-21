@@ -12,7 +12,8 @@ var app = new Vue({
     stockCode: 'AMZN',
     error: null,
     loading: true,
-    socketio: null
+    socketio: null,
+    chart: null
   },
   watch: {
     'stockCode' () {
@@ -82,26 +83,21 @@ var app = new Vue({
     },
     addToChart(stockData) {
       var _self = this
-
-      let myPieChart = new Chart(_self.$refs.myChart, {
-        // The type of chart we want to create
+      //TODO add to this.chart
+    },
+    initiateChart() {
+      this.chart = new Chart(this.$refs.myChart, {
         type: 'line',
-
-        // The data for our dataset
         data: {
-          labels: ["January", "February", "March", "April", "May"],
-          datasets: [{
-            label: "My First dataset",
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
-            data: [0, 1, 1, 6, 4],
-          }]
+          labels: [],
+          datasets: []
         },
-
-        // Configuration options go here
         options: {}
-      });
+      })
     }
+  },
+  mounted() {
+    this.initiateChart()
   },
   created() {
     this.setupSocket()
