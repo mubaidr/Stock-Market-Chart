@@ -9,7 +9,7 @@ var app = new Vue({
     },
     stocks: [],
     stocksData: {},
-    stockCode: 'MSFT',
+    stockCode: 'AMZN',
     error: null,
     loading: true,
     socketio: null
@@ -26,12 +26,11 @@ var app = new Vue({
       })
     }
   },
-  computed: {
-    stockDataURL() {
-      return this.stockApi.url + this.stockCode + this.stockApi.key
-    }
-  },
+  computed: {},
   methods: {
+    stockDataURL(code) {
+      return this.stockApi.url + code + this.stockApi.key
+    },
     addStock() {
       var _self = this
 
@@ -41,7 +40,7 @@ var app = new Vue({
       if (this.stocks.indexOf(this.stockCode) > -1) {
         this.error = 'This stock code is already added.'
       } else {
-        axios.get(this.stockDataURL).then(function (res) {
+        axios.get(this.stockDataURL(this.stockCode)).then(function (res) {
           if (res.data['Meta Data']) {
             _self.socketio.emit('addStock', _self.stockCode)
             _self.stocks.push(_self.stockCode)
@@ -75,7 +74,13 @@ var app = new Vue({
       })
     },
     refreshChart(callback) {
-      console.log(this.stocks)
+      this.stocks.forEach(function (element) {
+        axios.get(this.stockDataURL(element)).then(function (res) {
+          console.log(res)
+        }).catch(function (err) {
+          console.log('Unable to load data for: ' + element)
+        })
+      }, this);
 
       if (callback) callback()
     }

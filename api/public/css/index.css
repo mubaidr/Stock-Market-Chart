@@ -51,9 +51,11 @@
 .chart-container {
   padding: 25px;
   padding-bottom: 0;
-  border: 1px solid#2c3e50;
+  border: 10px solid#2c3e50;
   border-radius: 3px;
-  margin-bottom: 25px;
+  margin: 25px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 5px #444;
 }
 
 .chart-container .chart {
@@ -61,6 +63,16 @@
   overflow-y: hidden;
 }
 
+.alert {
+  padding: 11px;
+  padding-right: 36px;
+}
+
 .alert-primary {
   border-color: #7a848f;
+}
+
+.alert .close:hover,
+.alert .close:focus {
+  color: #2c3e50;
 }
