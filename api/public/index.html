@@ -31,18 +31,17 @@
       <div class="chart-container">
         <div class="chart"></div>
         <br>
-        <div class="stock-info row">
+        <div class="row">
           <transition-group name="slide-up" tag="div">
             <div class="col-sm-6" v-for="stock in stocks" :key="stock">
               <div class="stock alert alert-dismissible alert-primary">
-                <button class="close" data-dismiss="alert" type="button">&times;</button>
+                <button class="close" data-dismiss="alert" type="button" @click="removeStock(stock)">&times;</button>
                 <strong>{{stock}}</strong>
               </div>
             </div>
           </transition-group>
           <div class="col-sm-6">
             <div class="form-group">
-              <label class="control-label">Syncs in realtime across clients</label>
               <div class="input-group">
                 <span class="input-group-addon">Code</span>
                 <input class="form-control" type="text" v-model="stockCode">
@@ -53,6 +52,11 @@
               <span class="help-block text-danger" v-show="error">{{error}}</span>
             </div>
           </div>
+        </div>
+        <br/>
+        <div style="text-align: center">
+          <p>This chart list is synced across all connected clients.</p>
+          <p class="text-muted">Built using Nodejs, scoket.io, vuejs & Charts.js</p>
         </div>
       </div>
     </div>

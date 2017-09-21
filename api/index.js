@@ -33,6 +33,14 @@ io.on('connection', function (socket) {
 
     socket.broadcast.emit('stocks', stocks);
   })
+
+  socket.on('removeStock', function (data) {
+    stocks = stocks.filter(function (item) {
+      return item !== data
+    })
+
+    socket.broadcast.emit('stocks', stocks);
+  })
 })
 
 server.listen(port)

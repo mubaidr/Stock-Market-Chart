@@ -16,10 +16,14 @@ var app = new Vue({
   },
   watch: {
     'stockCode' () {
-      _self.error = ''
+      this.error = ''
     },
-    'stocks' (allStocks) {
+    'stocks' (newStocks, oldStocks) {
+      var _self = this
 
+      this.refreshChart(function () {
+        _self.loading = false
+      })
     }
   },
   computed: {
@@ -47,20 +51,34 @@ var app = new Vue({
           }
         }).catch(function (err) {
           _self.error = 'Unable to connect API server.'
-        }).then(function () {
-          _self.loading = false
         })
       }
+    },
+    removeStock(code) {
+      this.stocks = this.stocks.filter(function (item) {
+        return item !== code
+      })
+      this.socketio.emit('removeStock', code)
     },
     setupSocket() {
       var _self = this
       this.socketio = io.connect(location.href)
+
       this.socketio.on('stocks', function (data) {
         _self.stocks = data
       })
-      this.loading = false
+
+      this.socketio.on('removeStock', function (data) {
+        _self.stocks = _self.stocks.filter(function (item) {
+          return item !== data
+        })
+      })
     },
-    refreshChart() {}
+    refreshChart(callback) {
+      console.log(this.stocks)
+
+      if (callback) callback()
+    }
   },
   created() {
     this.setupSocket()
