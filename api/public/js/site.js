@@ -8,7 +8,7 @@ var app = new Vue({
       key: '&apikey=VV1B07RZ6IR451J1'
     },
     stocks: [],
-    stocksData: {},
+    stocksData: [],
     stockCode: 'AMZN',
     error: null,
     loading: true,
@@ -18,12 +18,8 @@ var app = new Vue({
     'stockCode' () {
       this.error = ''
     },
-    'stocks' (newStocks, oldStocks) {
-      var _self = this
-
-      this.refreshChart(function () {
-        _self.loading = false
-      })
+    'stocks' () {
+      this.refreshChartData()
     }
   },
   computed: {},
@@ -73,16 +69,38 @@ var app = new Vue({
         })
       })
     },
-    refreshChart(callback) {
+    refreshChartData() {
+      var _self = this
+
       this.stocks.forEach(function (element) {
         axios.get(this.stockDataURL(element)).then(function (res) {
-          console.log(res)
+          _self.addToChart(res.data)
         }).catch(function (err) {
           console.log('Unable to load data for: ' + element)
         })
       }, this);
+    },
+    addToChart(stockData) {
+      var _self = this
 
-      if (callback) callback()
+      let myPieChart = new Chart(_self.$refs.myChart, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+          labels: ["January", "February", "March", "April", "May"],
+          datasets: [{
+            label: "My First dataset",
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 1, 1, 6, 4],
+          }]
+        },
+
+        // Configuration options go here
+        options: {}
+      });
     }
   },
   created() {

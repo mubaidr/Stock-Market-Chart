@@ -29,8 +29,10 @@
     </nav>
     <div class="container" id="app">
       <div class="chart-container">
-        <div class="chart"></div>
-        <br>
+        <div class="chart">
+          <canvas ref="myChart"></canvas>
+        </div>
+        <hr/>
         <div class="row">
           <transition-group name="slide-up" tag="div">
             <div class="col-sm-6" v-for="(stock, index) in stocks" :key="index">
@@ -46,7 +48,7 @@
                 <span class="input-group-addon">Code</span>
                 <input class="form-control" type="text" v-model="stockCode">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" @click="addStock" :disabled="loading || stockCode === ''">Add</button>
+                  <button class="btn btn-primary" type="button" @click="addStock" :disabled="loading || stockCode === ''">Add Stock</button>
                 </span>
               </div>
               <span class="help-block text-danger" v-show="error">{{error}}</span>
