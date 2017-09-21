@@ -1,0 +1,47 @@
+{
+  "name": "stock-market-chart",
+  "version": "1.0.0",
+  "description": "Stock-Market-Chart Freecode camp exercise",
+  "private": true,
+  "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js"
+  },
+  "engines": {
+    "node": "^8.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "cors": "^2.8.4",
+    "express": "~4.15.2",
+    "morgan": "^1.8.2",
+    "socket.io": "^2.0.3",
+    "url-parse": "^1.1.9"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "beta",
+    "eslint": "^4.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mubaidr/Stock-Market-Chart.git"
+  },
+  "keywords": [
+    "freecodecamp",
+    "nodejs"
+  ],
+  "author": "mubaidr@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mubaidr/Stock-Market-Chart/issues"
+  },
+  "homepage": "https://github.com/mubaidr/Stock-Market-Chart#readme"
+}

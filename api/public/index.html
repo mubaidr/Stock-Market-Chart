@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Muhammad Ubaid Raza">
+    <meta name="description" content="An app built to track and graph stock market.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stock Market Charts</title>
+    <link rel="stylesheet" href="./css/animations.css">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <h1 class="navbar-brand">Stocky Charts</h1>
+        </div>
+        <br/><br/>
+        <p>An app built to track and graph stock market.</p>
+      </div>
+    </nav>
+    <div class="container" id="app">
+      <div class="chart-container">
+        <div class="chart"></div>
+        <br/>
+        <div class="stock-info row">
+          <div class="col-sm-6" v-for="stock in stocks">
+            <div class="stock alert alert-dismissible alert-primary">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Well done!</strong>
+              <p>You successfully read</p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label class="control-label">Syncs in realtime across clients</label>
+              <div class="input-group">
+                <span class="input-group-addon">Code</span>
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button">Add</button>
+                </span>
+              </div>
+              <span class="help-block">A block of help text.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer id="myFooter">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h5>About</h5>
+            <ul>
+              <li>
+                <a href="https://github.com/mubaidr/Stock-Market-Chart#voting-app">Service</a>
+              </li>
+              <li>
+                <a href="https://github.com/mubaidr/Stock-Market-Chart">Source Code</a>
+              </li>
+
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h5>Support</h5>
+            <ul>
+              <li>
+                <a href="https://github.com/mubaidr/Stock-Market-Chart/issues">Github Issues</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <p>Designed and Coded by <br/>
+              <a href="https://mubaidr.github.io">Muhammad Ubaid Raza</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="./js/site.js"></script>
+  </body>
+
+</html>
