@@ -13,7 +13,8 @@ var app = new Vue({
     error: null,
     loading: true,
     socketio: null,
-    chart: null
+    chart: null,
+    chartedStock: []
   },
   watch: {
     'stockCode' () {
@@ -21,6 +22,7 @@ var app = new Vue({
     },
     'stocks' () {
       this.refreshChartData()
+      this.loading = false
     }
   },
   computed: {},
@@ -36,6 +38,7 @@ var app = new Vue({
 
       if (this.stocks.indexOf(this.stockCode) > -1) {
         this.error = 'This stock code is already added.'
+        this.loading = false
       } else {
         axios.get(this.stockDataURL(this.stockCode)).then(function (res) {
           if (res.data['Meta Data']) {
@@ -56,6 +59,7 @@ var app = new Vue({
       this.stocks = this.stocks.filter(function (item) {
         return item !== code
       })
+      this.removeFromChart(code)
       this.socketio.emit('removeStock', code)
     },
     setupSocket() {
@@ -79,19 +83,35 @@ var app = new Vue({
         axios.get(this.stockDataURL(element)).then(function (res) {
           _self.addToChart(res.data)
         }).catch(function (err) {
-          console.log('Unable to load data for: ' + element)
+          console.log('Unable to load data for: ' + element, err)
         })
       }, this);
     },
     addToChart(stockData) {
-      var _self = this
-      //TODO get data/labels in correct format
-      console.log(stockData)
+      var code = stockData['Meta Data']['2. Symbol']
 
-      this.chart.data.labels.push(stockData['Meta Data']['2. Symbol'])
-      this.chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(stockData)
-      })
+      if (this.chartedStock.indexOf(code) > -1) return
+      if (this.chartedStock.length === 0) {
+        //TODO push month names from data
+        this.chart.data.labels.push()
+      }
+      this.chartedStock.push(code)
+
+      var dataSet = {
+        data: [1, 3, 2, 5, 6], //TODO get actual timeseries
+        label: code
+      }
+
+      this.chart.data.datasets.push(dataSet)
+      this.chart.update()
+    },
+    removeFromChart(code) {
+      var index = this.chartedStock.indexOf(code)
+
+      if (index === -1) return
+
+      this.chartedStock.splice(index, 1)
+      this.chart.data.datasets.splice(index, 1)
       this.chart.update()
     },
     initiateChart() {
