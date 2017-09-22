@@ -89,18 +89,26 @@ var app = new Vue({
     },
     addToChart(stockData) {
       var code = stockData['Meta Data']['2. Symbol']
-
+      var dates = Object.keys(stockData['Monthly Time Series'])
       if (this.chartedStock.indexOf(code) > -1) return
-      if (this.chartedStock.length === 0) {
-        //TODO push month names from data
-        this.chart.data.labels.push()
+      if (this.chart.data.labels.length < dates.length) {
+        this.chart.data.labels = dates
       }
       this.chartedStock.push(code)
 
+      var randColor = this.getRandomColor()
+
       var dataSet = {
-        data: [1, 3, 2, 5, 6], //TODO get actual timeseries
-        label: code
+        data: [],
+        label: code,
+        fill: false,
+        borderColor: '#2c3e50',
+        backgroundColor: randColor
       }
+
+      dates.forEach(function (date) {
+        dataSet.data.push(stockData['Monthly Time Series'][date]['4. close'])
+      })
 
       this.chart.data.datasets.push(dataSet)
       this.chart.update()
@@ -123,6 +131,14 @@ var app = new Vue({
         },
         options: {}
       })
+    },
+    getRandomColor() {
+      var letters = '0123456789ABCDEF'.split('')
+      var color = '#'
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)]
+      }
+      return color
     }
   },
   mounted() {

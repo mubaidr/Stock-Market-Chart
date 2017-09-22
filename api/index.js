@@ -7,7 +7,7 @@ const path = require('path')
 const config = require('./config')
 const routes = require('./routes')
 
-var stocks = ['AAPL', 'GOOG']
+var stocks = ['AAPL', 'NVDA', 'AMD']
 
 var app = express()
 var port = process.env.PORT || config.port
