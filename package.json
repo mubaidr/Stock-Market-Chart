@@ -11,12 +11,12 @@
     "node": "^8.0.0"
   },
   "dependencies": {
-    "body-parser": "^1.18.1",
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "~4.15.2",
-    "morgan": "^1.8.2",
+    "express": "~4.15.5",
+    "morgan": "^1.9.1",
     "socket.io": "^2.0.3",
-    "url-parse": "^1.1.9"
+    "url-parse": "^1.4.3"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",
